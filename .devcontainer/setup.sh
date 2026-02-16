@@ -1,3 +1,3 @@
 #!/bin/bash
 sudo apt update
-sudo apt-get install -y ant
+sudo apt-get install -y ant gnucobol
