@@ -8,6 +8,7 @@ package varlang;
  */
 public interface Env {
 	Value get (String search_var);
+	Value set (String search_var, Value val);
 
 	@SuppressWarnings("serial")
 	static public class LookupException extends RuntimeException {
@@ -18,6 +19,10 @@ public interface Env {
 	
 	static public class EmptyEnv implements Env {
 		public Value get (String search_var) {
+			throw new LookupException("No binding found for name: " + search_var);
+		}
+
+		public Value set (String search_var, Value val) {
 			throw new LookupException("No binding found for name: " + search_var);
 		}
 	}
@@ -35,6 +40,13 @@ public interface Env {
 			if (search_var.equals(_var))
 				return _val;
 			return _saved_env.get(search_var);
+		}
+		public Value set (String search_var, Value val) {
+			if (search_var.equals(_var)) {
+				_val = val;
+				return _val;
+			}
+			return _saved_env.set(search_var, val);
 		}
 	}
 	

@@ -66,6 +66,16 @@ public class Printer {
 			result += e.body().accept(this, env) + " ";
 			return result + ")";
 		}
+
+		public String visit(AST.SetExp e, Env env) {
+			String result = "(set ";
+			result += e.name();
+			result += " ";
+			result += e.e().accept(this, env);
+			result += ")";
+
+			return result;
+		}
 		
 	}
 }

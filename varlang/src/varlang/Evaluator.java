@@ -101,5 +101,12 @@ public class Evaluator implements Visitor<Value> {
 
 		return (Value) e.body().accept(this, new_env);		
 	}	
-	
+
+	@Override
+	public Value visit(SetExp e, Env env) { // Breaking the rules of varlang
+		String name = e.name();
+		Value val = e.e().accept(this, env);
+
+		return env.set(name, val);
+	}
 }

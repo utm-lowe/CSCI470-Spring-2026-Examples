@@ -12,6 +12,7 @@ grammar VarLang;
         | m=multexp { $ast = $m.ast; }
         | d=divexp { $ast = $d.ast; }
         | l=letexp { $ast = $l.ast; }
+		| s=setexp { $ast = $s.ast; }
         ;
 
  numexp returns [NumExp ast]:
@@ -73,10 +74,15 @@ grammar VarLang;
  			')' { $ast = new LetExp($names, $value_exps, $body.ast); }
  		;
 
+setexp returns [SetExp ast]:
+	'(' Set id=Identifier e=exp ')' { $ast = new SetExp(id.text, e.ast);}
+	;
+	
  // Lexical Specification of this Programming Language
  //  - lexical specification rules start with uppercase
  
  Let : 'let' ;
+ Set : 'set' ;
  Dot : '.' ;
 
  Number : DIGIT+ ;
