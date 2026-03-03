@@ -18,8 +18,7 @@ import varlang.Env.ExtendEnv;
 
 public class Evaluator implements Visitor<Value> {
 	
-	Value valueOf(Program p) {
-		Env env = new EmptyEnv();
+	Value valueOf(Program p, Env env) {
 		// Value of a program in this language is the value of the expression
 		return (Value) p.accept(this, env);
 	}

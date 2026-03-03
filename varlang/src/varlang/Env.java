@@ -1,5 +1,7 @@
 package varlang;
 
+import java.util.TreeMap;
+
 /**
  * Representation of an environment, which maps variables to values.
  * 
@@ -36,18 +38,44 @@ public interface Env {
 			_var = var;
 			_val = val;
 		}
+
 		public Value get (String search_var) {
 			if (search_var.equals(_var))
 				return _val;
 			return _saved_env.get(search_var);
 		}
+
 		public Value set (String search_var, Value val) {
-			if (search_var.equals(_var)) {
-				_val = val;
-				return _val;
-			}
 			return _saved_env.set(search_var, val);
 		}
 	}
-	
+
+	static public class MapEnv implements Env {
+		private TreeMap<String, Value> _symbols;
+		private Env _saved_env;
+
+		MapEnv() {
+			this(new EmptyEnv());
+		}
+
+		MapEnv(Env saved_env) {
+			_saved_env = saved_env;
+			_symbols = new TreeMap<String, Value>();
+		}
+
+		public Value get(String search_var) {
+			Value v = _symbols.get(search_var);
+
+			if(v == null) {
+				return _saved_env.get(search_var);
+			}
+
+			return v;
+		}
+
+		public Value set(String search_var, Value v) {
+			_symbols.put(search_var, v);
+			return v;
+		}
+	}
 }

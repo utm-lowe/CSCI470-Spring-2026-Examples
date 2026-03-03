@@ -20,12 +20,14 @@ public class Interpreter {
 		Reader reader = new Reader();
 		Evaluator eval = new Evaluator();
 		Printer printer = new Printer();
+		Env env = new Env.MapEnv();
+
 		REPL: while (true) { // Read-Eval-Print-Loop (also known as REPL)
 			Program p = null;
 			try {
 				p = reader.read();
 				if(p._e == null) continue REPL;
-				Value val = eval.valueOf(p);
+				Value val = eval.valueOf(p, env);
 				printer.print(val);
 			} catch (Env.LookupException e) {
 				printer.print(e);
