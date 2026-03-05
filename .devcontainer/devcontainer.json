@@ -16,6 +16,7 @@
         }
       },
     "remoteEnv": {
-        "PATH": "${containerEnv:PATH}:${containerWorkspaceFolder}/.local/bin"
+        "PATH": "${containerEnv:PATH}:${containerWorkspaceFolder}/.local/bin",
+        "SNOLIB": "${containerWorkspaceFolder}/.local/lib/snobol4" 
     }
   }
