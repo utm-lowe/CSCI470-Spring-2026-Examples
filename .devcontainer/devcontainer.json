@@ -11,7 +11,11 @@
             "ms-vscode.makefile-tools",
             "vscjava.vscode-java-pack",
             "RocketSoftware.rocket-cobol",
+            "chipnetics.spitbol",
           ]
         }
-      }
+      },
+    "remoteEnv": {
+        "PATH": "${containerEnv:PATH}:${containerWorkspaceFolder}/.local/bin"
+    }
   }
