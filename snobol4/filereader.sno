@@ -1,0 +1,3 @@
+        INPUT('SOURCE', 1, , 'filereader.sno')
+LOOP    OUTPUT = SOURCE                         :S(LOOP)
+END
