@@ -11,15 +11,32 @@ import funclang.parser.FuncLangLexer;
 import funclang.parser.FuncLangParser;
 
 public class Reader {
-	
-	Program read() throws IOException {
-		String programText = readNextProgram();
-		return parse(programText);
+
+	private BufferedReader inputStream;   
+	private FuncLangParser p;
+
+	public Reader() {
+		inputStream = null;
+		p = null;
 	}
 
-	Program parse(String programText) {
-		FuncLangLexer l = new FuncLangLexer(new org.antlr.v4.runtime.ANTLRInputStream(programText));
-		FuncLangParser p = new FuncLangParser(new org.antlr.v4.runtime.CommonTokenStream(l));
+	public Reader(String fileName) throws IOException {
+		inputStream = new BufferedReader(new FileReader(fileName));
+		FuncLangLexer l = new FuncLangLexer(new org.antlr.v4.runtime.ANTLRInputStream(inputStream));
+		p = new FuncLangParser(new org.antlr.v4.runtime.CommonTokenStream(l));
+	}
+
+	
+	Program read() throws IOException {
+		if(inputStream == null) {
+			String programText = readNextProgram();
+			FuncLangLexer l = new FuncLangLexer(new org.antlr.v4.runtime.ANTLRInputStream(programText));
+			p = new FuncLangParser(new org.antlr.v4.runtime.CommonTokenStream(l));
+		}
+		return parse();
+	}
+
+	Program parse() {
 		Program program = p.program().ast;
 		return program;
 	}

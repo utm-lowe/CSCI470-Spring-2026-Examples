@@ -17,7 +17,22 @@ public class Interpreter {
 		System.out.println("Type a program to evaluate and press the enter key," + 
 							" e.g. ((lambda (av bv cv) (let ((a av) (b bv) (c cv) (d 279) (e 277)) (+ (* a b) (/ c (- d e))))) 3 100 84) \n" + 
 							"Press Ctrl + C to exit.");
-		Reader reader = new Reader();
+		
+		Reader reader;
+		if(args.length == 0) {
+			reader = new Reader();
+		} else if(args.length == 1) {
+			try {
+				reader = new Reader(args[0]);
+			} catch (IOException e) {
+				System.out.println(e);
+				return;
+			}
+		} else {
+			System.out.println("Invalid invocation.");
+			return;
+		}
+
 		Evaluator eval = new Evaluator(reader);
 		Printer printer = new Printer();
 		REPL: while (true) { // Read-Eval-Print-Loop (also known as REPL)
@@ -25,6 +40,10 @@ public class Interpreter {
 			try {
 				p = reader.read();
 				if(p._e == null) continue REPL;
+				if(p._e instanceof AST.UnitExp) {
+					// end of file
+					return;
+				}
 				Value val = eval.valueOf(p);
 				printer.print(val);
 			} catch (Env.LookupException e) {
