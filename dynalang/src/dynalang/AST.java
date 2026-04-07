@@ -49,6 +49,22 @@ public interface AST {
 		}
 	}
 
+	public static class StringExp extends Exp {
+		String _val;
+
+		public NumExp(String v) {
+			_val = v;
+		}
+
+		public String v() {
+			return _val;
+		}
+		
+		public <T> T accept(Visitor<T> visitor) {
+			return visitor.visit(this);
+		}
+	}
+
 	public static abstract class BinaryExp extends Exp {
 		Exp _left;
 		Exp _right;
@@ -89,15 +105,51 @@ public interface AST {
 		}
 	}
 
-	// YOUR CODE HERE
+
+	public static class AssignExp extends BinaryExp {
+		public AssignExp(Exp left, Exp right) {
+			super(left, right);
+		}
+		public <T> T accept(Visitor<T> visitor) {
+			return visitor.visit(this);
+		}
+	}
+
+	public static class PrintExp extends UnaryExp {
+		public PrintExp(Exp e) {
+			super(e);
+		}
+		public <T> T accept(Visitor<T> visitor) {
+			return visitor.visit(this);
+		}
+	}
+
+	public static class VarExp extends Exp {
+		private String name;
+
+		public VarExp(String name) {
+			this.name = name;
+		}
+
+		public String getName() {
+			return name;
+		}
+
+		public <T> T accept(Visitor<T> visitor) {
+			return visitor.visit(this);
+		}
+	}
 
 
 	public interface Visitor <T> {
 		// This interface should contain a signature for each concrete AST node.
 		public T visit(AST.Program e);
 		public T visit(AST.NumExp e);
+		public T visit(AST.StringExp e);
 		public T visit(AST.AddExp e);
+		public T visit(AST.AssignExp e);
+		public T visit(AST.PrintExp e);
+		public T visit(AST.VarExp e);
 
-		// YOUR CODE HERE
 	}	
 }

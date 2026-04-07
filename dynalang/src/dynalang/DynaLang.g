@@ -3,14 +3,34 @@ grammar DynaLang;
 // Parser Specification of this Programming Language
 //  - parser specification rules start with lowercase
 // YOU WILL NEED TO EDIT THE PARSER RULES FOR THIS ASSGINMENT
-
 program returns [Program ast] :   
-		e=exp { $ast = new Program($e.ast); }
+		a=assign { $ast = new Program($e.ast)}
+		| e=exp { $ast = new Program($e.ast); }
+		| p=print { $ast = new Program($e.ast);}
 		;
-	
+
+assign returns [AssignExp ast] :
+		l=varexp '=' r=exp { $ast = new AssignExp($l.ast, $r.ast); }
+		;
+
 exp returns [Exp ast]:
-	l=exp '+' r=numexp { $ast = new AddExp($l.ast, $r.ast); }
+	l=exp '+' r=exp { $ast = new AddExp($l.ast, $r.ast); }
 	| n=numexp { $ast = $n.ast; }
+	| v=varexp { $ast = $v.ast; }
+	| s=strexp { $ast = $s.ast; }
+	;
+
+print returns [PrintExp ast]:
+	Print e=exp	{$ast = new PrintExp($e.ast); }
+	;
+
+
+varexp returns [VarExp ast]:
+	v=Identifier {$ast = new VarExp($v.text);}
+	;
+
+strexp return [StringExp ast]:
+	s=String {$ast = new StringExp($s.text);}
 	;
 
 numexp returns [Exp ast]:
@@ -19,15 +39,18 @@ numexp returns [Exp ast]:
   		;		
 
 
-
  // Lexical Specification of this Programming Language
  //  - lexical specification rules start with uppercase
  // YOU SHOULD NOT EDIT THESE RULES IN THIS ASSIGNMENT
+ Print: 'print';
+
  Dot : '.' ;
 
  Number : DIGIT+ ;
 
  Identifier :   Letter LetterOrDigit*;
+
+ String : '"' (~'"')* '"';
 
  Letter :   [a-zA-Z$_]
 	|   ~[\u0000-\u00FF\uD800-\uDBFF] 
@@ -43,8 +66,4 @@ numexp returns [Exp ast]:
 
  fragment DIGIT: ('0'..'9');
 
- AT : '@';
- ELLIPSIS : '...';
  WS  :  [ \t\r\n\u000C]+ -> skip;
- Comment :   '/*' .*? '*/' -> skip;
- Line_Comment :   '//' ~[\r\n]* -> skip;
