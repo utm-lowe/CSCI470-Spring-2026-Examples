@@ -1,0 +1,59 @@
+<?xml version="1.0" ?>
+<project name="lang" default="parser">
+
+	<!-- ANTLR version -->
+	<property name="antlr.version" value="4.5" />
+
+	<!-- DynaLang parser -->
+	<target name="dynalang-check-parser">
+		<condition property="dynalang.parser.uptodate">
+			<and>
+				<uptodate srcfile="src/dynalang/DynaLang.g" targetfile="src/dynalang/parser/DynaLangParser.java" />
+				<uptodate srcfile="src/dynalang/DynaLang.g" targetfile="src/dynalang/parser/DynaLangLexer.java" />
+				<uptodate srcfile="src/dynalang/DynaLang.g" targetfile="src/dynalang/parser/DynaLangListener.java" />
+			</and>
+		</condition>
+	</target>
+
+	<target name="dynalang" depends="dynalang-check-parser" unless="dynalang.parser.uptodate">
+		<java jar="lib/antlr-${antlr.version}-complete.jar" dir="src/dynalang/" fork="true" failonerror="true">
+			<arg value="-o" />
+			<arg value="parser/" />
+			<arg value="-no-listener" />
+			<arg value="-package" />
+			<arg value="dynalang.parser; import static dynalang.AST.*" />
+			<arg value="DynaLang.g" />
+		</java>
+	</target>
+
+	<target name="parser" depends="dynalang" >
+	</target>
+
+    	<target name="compile" depends="parser">
+        	<mkdir dir="build/classes"/>
+        	<javac srcdir="src" destdir="build/classes">
+    			<classpath>
+        			<pathelement path="lib/antlr-4.5-complete.jar"/>
+    			</classpath>
+		</javac>
+    	</target>
+
+    	<target name="jar" depends="compile">
+        	<mkdir dir="build/jar"/>
+        	<jar destfile="build/jar/DynaLang.jar" basedir="build/classes">
+    			<zipgroupfileset dir="lib" includes="antlr-4.5-complete.jar" />
+            		<manifest>
+                		<attribute name="Main-Class" value="dynalang.Interpreter"/>
+            		</manifest>
+        	</jar>
+    	</target>
+
+    	<target name="run" depends="jar">
+        	<java jar="build/jar/DynaLang.jar" fork="true"/>
+    	</target>
+
+        <target name="clean">
+                <delete dir="build"/>
+        </target>
+	
+</project>

@@ -1,0 +1,15 @@
+T__0=1
+Dot=2
+Number=3
+Identifier=4
+Letter=5
+LetterOrDigit=6
+AT=7
+ELLIPSIS=8
+WS=9
+Comment=10
+Line_Comment=11
+'+'=1
+'.'=2
+'@'=7
+'...'=8
