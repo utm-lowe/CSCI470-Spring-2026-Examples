@@ -17,23 +17,23 @@ public class DynaLangLexer extends Lexer {
 	protected static final PredictionContextCache _sharedContextCache =
 		new PredictionContextCache();
 	public static final int
-		T__0=1, T__1=2, Print=3, Dot=4, Number=5, Identifier=6, String=7, Letter=8, 
-		LetterOrDigit=9, WS=10;
+		T__0=1, T__1=2, Print=3, Open=4, Dot=5, Number=6, Identifier=7, String=8, 
+		Letter=9, LetterOrDigit=10, WS=11;
 	public static String[] modeNames = {
 		"DEFAULT_MODE"
 	};
 
 	public static final String[] ruleNames = {
-		"T__0", "T__1", "Print", "Dot", "Number", "Identifier", "String", "Letter", 
-		"LetterOrDigit", "DIGIT", "WS"
+		"T__0", "T__1", "Print", "Open", "Dot", "Number", "Identifier", "String", 
+		"Letter", "LetterOrDigit", "DIGIT", "WS"
 	};
 
 	private static final String[] _LITERAL_NAMES = {
-		null, "'='", "'+'", "'print'", "'.'"
+		null, "'='", "'+'", "'print'", "'open'", "'.'"
 	};
 	private static final String[] _SYMBOLIC_NAMES = {
-		null, null, null, "Print", "Dot", "Number", "Identifier", "String", "Letter", 
-		"LetterOrDigit", "WS"
+		null, null, null, "Print", "Open", "Dot", "Number", "Identifier", "String", 
+		"Letter", "LetterOrDigit", "WS"
 	};
 	public static final Vocabulary VOCABULARY = new VocabularyImpl(_LITERAL_NAMES, _SYMBOLIC_NAMES);
 
@@ -92,9 +92,9 @@ public class DynaLangLexer extends Lexer {
 	@Override
 	public boolean sempred(RuleContext _localctx, int ruleIndex, int predIndex) {
 		switch (ruleIndex) {
-		case 7:
-			return Letter_sempred((RuleContext)_localctx, predIndex);
 		case 8:
+			return Letter_sempred((RuleContext)_localctx, predIndex);
+		case 9:
 			return LetterOrDigit_sempred((RuleContext)_localctx, predIndex);
 		}
 		return true;
@@ -119,29 +119,31 @@ public class DynaLangLexer extends Lexer {
 	}
 
 	public static final String _serializedATN =
-		"\3\u0430\ud6d1\u8206\uad2d\u4417\uaef1\u8d80\uaadd\2\fS\b\1\4\2\t\2\4"+
+		"\3\u0430\ud6d1\u8206\uad2d\u4417\uaef1\u8d80\uaadd\2\rZ\b\1\4\2\t\2\4"+
 		"\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\4\13\t"+
-		"\13\4\f\t\f\3\2\3\2\3\3\3\3\3\4\3\4\3\4\3\4\3\4\3\4\3\5\3\5\3\6\6\6\'"+
-		"\n\6\r\6\16\6(\3\7\3\7\7\7-\n\7\f\7\16\7\60\13\7\3\b\3\b\7\b\64\n\b\f"+
-		"\b\16\b\67\13\b\3\b\3\b\3\t\3\t\3\t\3\t\3\t\3\t\5\tA\n\t\3\n\3\n\3\n\3"+
-		"\n\3\n\3\n\5\nI\n\n\3\13\3\13\3\f\6\fN\n\f\r\f\16\fO\3\f\3\f\2\2\r\3\3"+
-		"\5\4\7\5\t\6\13\7\r\b\17\t\21\n\23\13\25\2\27\f\3\2\t\3\2$$\6\2&&C\\a"+
-		"ac|\4\2\2\u0101\ud802\udc01\3\2\ud802\udc01\3\2\udc02\ue001\7\2&&\62;"+
-		"C\\aac|\5\2\13\f\16\17\"\"Y\2\3\3\2\2\2\2\5\3\2\2\2\2\7\3\2\2\2\2\t\3"+
-		"\2\2\2\2\13\3\2\2\2\2\r\3\2\2\2\2\17\3\2\2\2\2\21\3\2\2\2\2\23\3\2\2\2"+
-		"\2\27\3\2\2\2\3\31\3\2\2\2\5\33\3\2\2\2\7\35\3\2\2\2\t#\3\2\2\2\13&\3"+
-		"\2\2\2\r*\3\2\2\2\17\61\3\2\2\2\21@\3\2\2\2\23H\3\2\2\2\25J\3\2\2\2\27"+
-		"M\3\2\2\2\31\32\7?\2\2\32\4\3\2\2\2\33\34\7-\2\2\34\6\3\2\2\2\35\36\7"+
-		"r\2\2\36\37\7t\2\2\37 \7k\2\2 !\7p\2\2!\"\7v\2\2\"\b\3\2\2\2#$\7\60\2"+
-		"\2$\n\3\2\2\2%\'\5\25\13\2&%\3\2\2\2\'(\3\2\2\2(&\3\2\2\2()\3\2\2\2)\f"+
-		"\3\2\2\2*.\5\21\t\2+-\5\23\n\2,+\3\2\2\2-\60\3\2\2\2.,\3\2\2\2./\3\2\2"+
-		"\2/\16\3\2\2\2\60.\3\2\2\2\61\65\7$\2\2\62\64\n\2\2\2\63\62\3\2\2\2\64"+
-		"\67\3\2\2\2\65\63\3\2\2\2\65\66\3\2\2\2\668\3\2\2\2\67\65\3\2\2\289\7"+
-		"$\2\29\20\3\2\2\2:A\t\3\2\2;<\n\4\2\2<A\6\t\2\2=>\t\5\2\2>?\t\6\2\2?A"+
-		"\6\t\3\2@:\3\2\2\2@;\3\2\2\2@=\3\2\2\2A\22\3\2\2\2BI\t\7\2\2CD\n\4\2\2"+
-		"DI\6\n\4\2EF\t\5\2\2FG\t\6\2\2GI\6\n\5\2HB\3\2\2\2HC\3\2\2\2HE\3\2\2\2"+
-		"I\24\3\2\2\2JK\4\62;\2K\26\3\2\2\2LN\t\b\2\2ML\3\2\2\2NO\3\2\2\2OM\3\2"+
-		"\2\2OP\3\2\2\2PQ\3\2\2\2QR\b\f\2\2R\30\3\2\2\2\t\2(.\65@HO\3\b\2\2";
+		"\13\4\f\t\f\4\r\t\r\3\2\3\2\3\3\3\3\3\4\3\4\3\4\3\4\3\4\3\4\3\5\3\5\3"+
+		"\5\3\5\3\5\3\6\3\6\3\7\6\7.\n\7\r\7\16\7/\3\b\3\b\7\b\64\n\b\f\b\16\b"+
+		"\67\13\b\3\t\3\t\7\t;\n\t\f\t\16\t>\13\t\3\t\3\t\3\n\3\n\3\n\3\n\3\n\3"+
+		"\n\5\nH\n\n\3\13\3\13\3\13\3\13\3\13\3\13\5\13P\n\13\3\f\3\f\3\r\6\rU"+
+		"\n\r\r\r\16\rV\3\r\3\r\2\2\16\3\3\5\4\7\5\t\6\13\7\r\b\17\t\21\n\23\13"+
+		"\25\f\27\2\31\r\3\2\t\3\2$$\6\2&&C\\aac|\4\2\2\u0101\ud802\udc01\3\2\ud802"+
+		"\udc01\3\2\udc02\ue001\7\2&&\62;C\\aac|\5\2\13\f\16\17\"\"`\2\3\3\2\2"+
+		"\2\2\5\3\2\2\2\2\7\3\2\2\2\2\t\3\2\2\2\2\13\3\2\2\2\2\r\3\2\2\2\2\17\3"+
+		"\2\2\2\2\21\3\2\2\2\2\23\3\2\2\2\2\25\3\2\2\2\2\31\3\2\2\2\3\33\3\2\2"+
+		"\2\5\35\3\2\2\2\7\37\3\2\2\2\t%\3\2\2\2\13*\3\2\2\2\r-\3\2\2\2\17\61\3"+
+		"\2\2\2\218\3\2\2\2\23G\3\2\2\2\25O\3\2\2\2\27Q\3\2\2\2\31T\3\2\2\2\33"+
+		"\34\7?\2\2\34\4\3\2\2\2\35\36\7-\2\2\36\6\3\2\2\2\37 \7r\2\2 !\7t\2\2"+
+		"!\"\7k\2\2\"#\7p\2\2#$\7v\2\2$\b\3\2\2\2%&\7q\2\2&\'\7r\2\2\'(\7g\2\2"+
+		"()\7p\2\2)\n\3\2\2\2*+\7\60\2\2+\f\3\2\2\2,.\5\27\f\2-,\3\2\2\2./\3\2"+
+		"\2\2/-\3\2\2\2/\60\3\2\2\2\60\16\3\2\2\2\61\65\5\23\n\2\62\64\5\25\13"+
+		"\2\63\62\3\2\2\2\64\67\3\2\2\2\65\63\3\2\2\2\65\66\3\2\2\2\66\20\3\2\2"+
+		"\2\67\65\3\2\2\28<\7$\2\29;\n\2\2\2:9\3\2\2\2;>\3\2\2\2<:\3\2\2\2<=\3"+
+		"\2\2\2=?\3\2\2\2><\3\2\2\2?@\7$\2\2@\22\3\2\2\2AH\t\3\2\2BC\n\4\2\2CH"+
+		"\6\n\2\2DE\t\5\2\2EF\t\6\2\2FH\6\n\3\2GA\3\2\2\2GB\3\2\2\2GD\3\2\2\2H"+
+		"\24\3\2\2\2IP\t\7\2\2JK\n\4\2\2KP\6\13\4\2LM\t\5\2\2MN\t\6\2\2NP\6\13"+
+		"\5\2OI\3\2\2\2OJ\3\2\2\2OL\3\2\2\2P\26\3\2\2\2QR\4\62;\2R\30\3\2\2\2S"+
+		"U\t\b\2\2TS\3\2\2\2UV\3\2\2\2VT\3\2\2\2VW\3\2\2\2WX\3\2\2\2XY\b\r\2\2"+
+		"Y\32\3\2\2\2\t\2/\65<GOV\3\b\2\2";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

@@ -47,5 +47,15 @@ public class Printer {
 		{
 			return e.getName();
 		}
+
+
+		public String visit(AST.OpenExp e, Env env) {
+			String result = "open ";
+			result += e.getLeft().accept(this, env);
+			result += " ";
+			result += e.getRight().accept(this, env);
+
+			return result;
+		}
 	}
 }

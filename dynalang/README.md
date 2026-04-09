@@ -27,12 +27,22 @@ y="world"
 print x+y
 ```
 
+__open.dyn__
+```
+open file "README.md"
+print file
+print file
+print file
+print file
+```
+
 # EBNF
 
 ```
 < Program >     ::= < Assignment >
                     | < Expression >
                     | < Print >
+                    | < Open >
 
 < Assignment >  ::= < Id > = < Expression >
 
@@ -42,6 +52,8 @@ print x+y
                     | < String >
 
 < Print >       ::= print < Expression >
+
+< Open >        ::= open < Id > < Exp >
 
 < Id >          ::= [a-zA-Z_][a-zA-Z_0-9]*
 

@@ -81,4 +81,13 @@ public class Evaluator implements Visitor<Value> {
 	{
 		return env.get(e.getName());
 	}
+
+	@Override
+	public Value visit(AST.OpenExp e, Env env)
+	{
+		VarExp var = (VarExp) e.getLeft();
+		Value v = new InFileVal(e.getRight().accept(this, env).toString());
+		env.set(var.getName(), v);
+		return v;
+	}
 }

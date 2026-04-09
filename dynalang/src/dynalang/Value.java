@@ -1,4 +1,5 @@
 package dynalang;
+import java.io.*;
 
 public interface Value {
 	public String toString();
@@ -20,5 +21,33 @@ public interface Value {
 	    public String toString() { 
 			return _val;
 	    }
+	}
+
+	static class InFileVal implements Value {
+		private BufferedReader reader;
+
+		public InFileVal(String fname) {
+			try {
+				reader = new BufferedReader(new FileReader(fname));
+			} catch(IOException e) {
+				// bah!
+			}
+		}
+
+		public String toString() {
+			String line;
+
+			try {
+				line = reader.readLine();
+			} catch(IOException e) {
+				line = "";
+			}
+
+			if(line == null) {
+				line = "";
+			}
+
+			return line;
+		}
 	}
 }

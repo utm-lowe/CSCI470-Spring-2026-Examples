@@ -141,6 +141,17 @@ public interface AST {
 	}
 
 
+	public static class OpenExp extends BinaryExp {
+		public OpenExp(Exp left, Exp right) {
+			super(left, right);
+		}
+
+		public <T> T accept(Visitor<T> visitor, Env env) {
+			return visitor.visit(this, env);
+		}
+	}
+
+
 	public interface Visitor <T> {
 		// This interface should contain a signature for each concrete AST node.
 		public T visit(AST.Program e, Env env);
@@ -150,6 +161,7 @@ public interface AST {
 		public T visit(AST.AssignExp e, Env env);
 		public T visit(AST.PrintExp e, Env env);
 		public T visit(AST.VarExp e, Env env);
+		public T visit(AST.OpenExp e, Env env);
 
 	}	
 }

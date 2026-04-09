@@ -7,6 +7,7 @@ program returns [Program ast] :
 		a=assign { $ast = new Program($a.ast);}
 		| e=exp { $ast = new Program($e.ast); }
 		| p=print { $ast = new Program($p.ast);}
+		| o=open  { $ast = new Program($o.ast);}
 		;
 
 assign returns [AssignExp ast] :
@@ -22,6 +23,10 @@ exp returns [Exp ast]:
 
 print returns [PrintExp ast]:
 	Print e=exp	{$ast = new PrintExp($e.ast); }
+	;
+
+open returns [OpenExp ast]:
+	Open l=varexp r=exp {$ast = new OpenExp($l.ast, $r.ast);}
 	;
 
 
@@ -43,6 +48,7 @@ numexp returns [Exp ast]:
  //  - lexical specification rules start with uppercase
  // YOU SHOULD NOT EDIT THESE RULES IN THIS ASSIGNMENT
  Print: 'print';
+ Open: 'open';
 
  Dot : '.' ;
 
