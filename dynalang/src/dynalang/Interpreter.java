@@ -11,19 +11,16 @@ import dynalang.AST.*;
  */
 public class Interpreter {
 	public static void main(String[] args) {
-		System.out.println("Type a program to evaluate and press the enter key," + 
-							" e.g. 2 + 3 * 5\n" + 
-							"Press Ctrl + C to exit.");
+		System.out.println("Dynalang - For programmers who like to live dangerously.");
 		Reader reader = new Reader();
 		Evaluator eval = new Evaluator();
 		Printer printer = new Printer();
+		Env env = new Env();
 		REPL: while (true) { // Read-Eval-Print-Loop (also known as REPL)
 			Program p = null;
 			try {
 				p = reader.read();
-				if(p._e == null) continue REPL;
-				Value val = eval.valueOf(p);
-				printer.print(val);
+				p.accept(eval, env);
 			} catch (IOException e) {
 				System.out.println("Error reading input:" + e.getMessage());
 			} catch (NullPointerException e) {

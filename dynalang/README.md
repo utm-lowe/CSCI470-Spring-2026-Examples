@@ -55,8 +55,8 @@ print x+y
 - [x] EBNF Description
 - [x] AST Nodes
 - [x] Grammar File
-- [ ] Value Types
-- [ ] Environment
-- [ ] Evaluator
-- [ ] Printer
-- [ ] Interpter
+- [x] Value Types
+- [x] Environment
+- [x] Evaluator
+- [x] Printer
+- [x] Interpter

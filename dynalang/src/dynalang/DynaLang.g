@@ -4,9 +4,9 @@ grammar DynaLang;
 //  - parser specification rules start with lowercase
 // YOU WILL NEED TO EDIT THE PARSER RULES FOR THIS ASSGINMENT
 program returns [Program ast] :   
-		a=assign { $ast = new Program($e.ast)}
+		a=assign { $ast = new Program($a.ast);}
 		| e=exp { $ast = new Program($e.ast); }
-		| p=print { $ast = new Program($e.ast);}
+		| p=print { $ast = new Program($p.ast);}
 		;
 
 assign returns [AssignExp ast] :
@@ -29,7 +29,7 @@ varexp returns [VarExp ast]:
 	v=Identifier {$ast = new VarExp($v.text);}
 	;
 
-strexp return [StringExp ast]:
+strexp returns [StringExp ast]:
 	s=String {$ast = new StringExp($s.text);}
 	;
 

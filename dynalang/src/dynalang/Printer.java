@@ -9,22 +9,43 @@ public class Printer {
 	
 	public static class Formatter implements AST.Visitor<String> {
 		
-		public String visit(Program p) {
-			return (String) p.e().accept(this);
+		public String visit(Program p, Env env) {
+			return (String) p.e().accept(this, env);
 		}
 		
-		public String visit(NumExp e) {
+		public String visit(NumExp e, Env env) {
 			return "" + e.v();
 		}
 		
-		public String visit(AddExp e) {
-			String result = e.getLeft().accept(this);
+		public String visit(AddExp e, Env env) {
+			String result = e.getLeft().accept(this, env);
 			result += " + ";
-			result += e.getRight().accept(this);
+			result += e.getRight().accept(this, env);
 
 			return result;
 		}		
 
-		// YOUR CODE HERE
+		public String visit(AST.StringExp e, Env env) {
+			return e.v();
+		}
+
+		public String visit(AST.AssignExp e, Env env) {
+			String result = e.getLeft().accept(this, env);
+			result += " = ";
+			result += e.getRight().accept(this, env);
+
+			return result;
+		}
+
+		public String visit(AST.PrintExp e, Env env)
+		{
+			return "print " + e.getExp().accept(this, env);
+		}
+
+
+		public String visit(AST.VarExp e, Env env)
+		{
+			return e.getName();
+		}
 	}
 }

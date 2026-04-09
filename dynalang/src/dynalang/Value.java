@@ -12,4 +12,13 @@ public interface Value {
 	    	return "" + _val; 
 	    }
 	}
+
+	static class StrVal implements Value {
+		private String _val;
+	    public StrVal(String v) { _val = v; } 
+	    public String v() { return _val; }
+	    public String toString() { 
+			return _val;
+	    }
+	}
 }

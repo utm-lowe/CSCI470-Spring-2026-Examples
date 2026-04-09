@@ -12,7 +12,7 @@ import java.util.List;
  */
 public interface AST {
 	public static abstract class ASTNode {
-		public abstract <T> T accept(Visitor<T> visitor);
+		public abstract <T> T accept(Visitor<T> visitor, Env env);
 	}
 	public static class Program extends ASTNode {
 		Exp _e;
@@ -25,8 +25,8 @@ public interface AST {
 			return _e;
 		}
 		
-		public <T> T accept(Visitor<T> visitor) {
-			return visitor.visit(this);
+		public <T> T accept(Visitor<T> visitor, Env env) {
+			return visitor.visit(this, env);
 		}
 	}
 	public static abstract class Exp extends ASTNode {
@@ -44,15 +44,15 @@ public interface AST {
 			return _val;
 		}
 		
-		public <T> T accept(Visitor<T> visitor) {
-			return visitor.visit(this);
+		public <T> T accept(Visitor<T> visitor, Env env) {
+			return visitor.visit(this, env);
 		}
 	}
 
 	public static class StringExp extends Exp {
 		String _val;
 
-		public NumExp(String v) {
+		public StringExp(String v) {
 			_val = v;
 		}
 
@@ -60,8 +60,8 @@ public interface AST {
 			return _val;
 		}
 		
-		public <T> T accept(Visitor<T> visitor) {
-			return visitor.visit(this);
+		public <T> T accept(Visitor<T> visitor, Env env) {
+			return visitor.visit(this, env);
 		}
 	}
 
@@ -100,8 +100,8 @@ public interface AST {
 		public AddExp(Exp left, Exp right) {
 			super(left, right);
 		}
-		public <T> T accept(Visitor<T> visitor) {
-			return visitor.visit(this);
+		public <T> T accept(Visitor<T> visitor, Env env) {
+			return visitor.visit(this, env);
 		}
 	}
 
@@ -110,8 +110,8 @@ public interface AST {
 		public AssignExp(Exp left, Exp right) {
 			super(left, right);
 		}
-		public <T> T accept(Visitor<T> visitor) {
-			return visitor.visit(this);
+		public <T> T accept(Visitor<T> visitor, Env env) {
+			return visitor.visit(this, env);
 		}
 	}
 
@@ -119,8 +119,8 @@ public interface AST {
 		public PrintExp(Exp e) {
 			super(e);
 		}
-		public <T> T accept(Visitor<T> visitor) {
-			return visitor.visit(this);
+		public <T> T accept(Visitor<T> visitor, Env env) {
+			return visitor.visit(this, env);
 		}
 	}
 
@@ -135,21 +135,21 @@ public interface AST {
 			return name;
 		}
 
-		public <T> T accept(Visitor<T> visitor) {
-			return visitor.visit(this);
+		public <T> T accept(Visitor<T> visitor, Env env) {
+			return visitor.visit(this, env);
 		}
 	}
 
 
 	public interface Visitor <T> {
 		// This interface should contain a signature for each concrete AST node.
-		public T visit(AST.Program e);
-		public T visit(AST.NumExp e);
-		public T visit(AST.StringExp e);
-		public T visit(AST.AddExp e);
-		public T visit(AST.AssignExp e);
-		public T visit(AST.PrintExp e);
-		public T visit(AST.VarExp e);
+		public T visit(AST.Program e, Env env);
+		public T visit(AST.NumExp e, Env env);
+		public T visit(AST.StringExp e, Env env);
+		public T visit(AST.AddExp e, Env env);
+		public T visit(AST.AssignExp e, Env env);
+		public T visit(AST.PrintExp e, Env env);
+		public T visit(AST.VarExp e, Env env);
 
 	}	
 }
